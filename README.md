@@ -14,6 +14,7 @@ Link to deployed application:
 https://thitareep.github.io/Mod6_APIWeatherDashboard/
 ## Technologies Used
 Bootstrap |
-https://getbootstrap.com/\
+https://getbootstrap.com/
+<br>
 OpenWeather API |
 https://home.openweathermap.org/
