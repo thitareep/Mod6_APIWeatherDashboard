@@ -1,0 +1,12 @@
+body {
+    background-color: white;
+}
+
+header {
+    background-image: linear-gradient(to bottom right, rgb(17, 7, 62), #CCCCFF );
+    padding: 15px;
+    font-weight: bolder;
+    text-shadow: 3px 4px black;
+}
+
+    
