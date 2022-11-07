@@ -8,7 +8,7 @@ function initPage() {
     const currentHumidityEl = document.getElementById ("humidity");
     const currentWindEl = document.getElementById ("windspeed");
     const historyEl = document.getElementById("history")
-    var fivedayEl = document.getElementById ("fivedayDisplay");
+    var fivedayEl = document.getElementById ("fiveday");
     var currentWeatherEl = document.getElementById("current-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
     
@@ -23,10 +23,10 @@ function initPage() {
                 
                 currentWeatherEl.classList.remove("d-none");
 
-                const todayDate = new Date(response.data.dt * 1000);
-                const day = todayDate.getDate();
-                const month = todayDate.getMonth() + 1;
-                const year = todayDate.getFullYear();
+                const currentDate = new Date(response.data.dt * 1000);
+                const day = currentDate.getDate();
+                const month = currentDate.getMonth() + 1;
+                const year = currentDate.getFullYear();
                 nameEl.innerHTML = response.data.name + " (" + month + "/" + day + "/" + year +") ";
                 let weatherIcon = response.data.weather[0].icon;
                 currentIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
@@ -35,12 +35,14 @@ function initPage() {
                 currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
                 currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
 
+                // Get 5-day forecast for selected city //
                 let cityID = response.data.id;
                 let weatherQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + myapiKey;
                 axios.get(weatherQueryURL)
                     .then(function (response) {
                         fivedayEl.classList.remove("d-none");
-                        // Parse response to display 5-day forecast
+                        
+                        // Parse response to display 5-day forecast //
                         const forecastEls = document.querySelectorAll(".forecast");
                         for (i = 0; i < forecastEls.length; i++) {
                             forecastEls[i].innerHTML = "";
