@@ -1,5 +1,5 @@
 function initPage() {
-    const cityEl = document.getElementById ("searchCity");
+    const cityEl = document.getElementById ("input-city");
     const searchEl = document.getElementById ("searchBtn");
     const clearEl = document.getElementById ("clearHistory");
     const nameEl = document.getElementById ("city-name");
@@ -16,7 +16,7 @@ function initPage() {
     const myapiKey = "a4b429260a736a34655e8ace2ca39f38";
 
     function weatherInfo(cityName) {
-        // Current weather get request from Open Weather API
+        // Current weather get request from Open Weather API //
         let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + myapiKey;
         axios.get(queryURL)
             .then(function (response) {
@@ -27,16 +27,16 @@ function initPage() {
                 const day = todayDate.getDate();
                 const month = todayDate.getMonth() + 1;
                 const year = todayDate.getFullYear();
-                nameEl.innerHTML = response.data.name + "(" + month + "/" + day + "/" + year +") ";
+                nameEl.innerHTML = response.data.name + " (" + month + "/" + day + "/" + year +") ";
                 let weatherIcon = response.data.weather[0].icon;
                 currentIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
                 currentIconEl.setAttribute("alt", response.data.weather[0].description);
-                currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " °F";
+                currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
                 currentHumEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
                 currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
 
                 let cityID = response.data.id;
-                let weatherQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + apiKey;
+                let weatherQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + myapiKey;
                 axios.get(weatherQueryURL)
                     .then(function (response) {
                         fivedayEl.classList.remove("d-none");
@@ -50,16 +50,17 @@ function initPage() {
                             const weatherForeMonth = weatherForeDate.getMonth() + 1;
                             const weatherForeYear = weatherForeDate.getFullYear();
                             const weatherForeDateEl = document.createElement("p");
-                            weatherForeDateEl.setAttribute("class", "mt-4 mb=0 weatherFore-date");
+                            weatherForeDateEl.setAttribute("class", "mt-4 mb-0 weatherFore-date");
                             weatherForeDate.innerHTML = weatherForeMonth + "/" + weatherForeDay + "/" + weatherForeYear;
                             weatherForeEls[i].append(weatherForeDate);
 
+                            // Current weather icon //
                             const iForecastEl = document.createElement("img");
                             iForecastEl.setAttribute("src", "https://openweathermap.org/img/wn/" + response.data.list[weatherForeIndex].weather[0].icon + "@2x.png");
                             iForecastEl.setAttribute("alt", response.data.list[weatherForeIndex].weather[0].description);
                             weatherForeEls[i].append(iForecastEl);
                             const foreTempEl = document.createElement("p");
-                            foreTempEl.innerHTML = "Temperature: " + k2f(response.data.list[weatherForeIndex].main.temp + " °F");
+                            foreTempEl.innerHTML = "Temperature: " + k2f(response.data.list[weatherForeIndex].main.temp + " &#176F");
                             weatherForeEls[i].append(foreTempEl);
                             const foreHumEl = document.createElement("p");
                             foreHumEl.innerHTML = "Humidity: " + response.data.list[weatherForeIndex].main.humidity + "%";
@@ -71,7 +72,7 @@ function initPage() {
 
     // Search history from local storage //
     searchEl.addEventListener("click", function () {
-        const searchInput = cityEl.ariaValueMax;
+        const searchInput = cityEl.value;
         weatherInfo(searchInput);
         searchHistory.push(searchInput);
         localStorage.setItem("search", JSON.stringify(searchHistory));

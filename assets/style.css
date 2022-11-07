@@ -8,3 +8,12 @@ header {
     font-weight: bolder;
     text-shadow: 3px 4px black;
 }  
+
+#current-weather {
+    background-color: slategray;
+}
+.weatherFore {
+    background-color: slategray;
+    font-size: 12px;
+    justify-content: center;
+}
