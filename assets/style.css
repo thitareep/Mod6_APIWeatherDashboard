@@ -1,12 +1,29 @@
 body {
-    background-color: white;
+    background-color: #e3e4efd8;
 }
 
+/* Styling for 'Weather Dashboard' header */
 header {
-    background-image: linear-gradient(to bottom right, rgb(17, 7, 62), #CCCCFF );
+    background-image: linear-gradient(to bottom right, rgb(94, 63, 233), #CCCCFF );
     padding: 15px;
     font-weight: bolder;
-    text-shadow: 3px 4px black;
+    text-shadow: 3px 4px rgb(65, 63, 63);
+}  
+
+/* Wanted the heading texts to stand out more */
+h2, h4 {
+    text-shadow: 2px 2px rgb(28, 29, 29);
 }
 
-    
+/* Color styling for current weather display card */
+#current-weather {
+    background-color: #b1afee;
+}
+
+/* Color styling for 5-day forecast weather display cards */
+.forecast {
+    background-color: #6863e4;
+    font-size: 15px;
+
+    justify-content: center;
+}

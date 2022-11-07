@@ -13,36 +13,38 @@
     <body>
         <!-- Header with 'Weather Dashboard' -->
         <header class="container-fluid text-center text-white p-3">
-            <h1>Weather Dashboard</h1>
+            <h1>🌤 Weather Dashboard ☔</h1>
         </header>
 
-        <div class="container-fuid">
+        <div class="container-fluid">
             <!-- Search & History on left side-->
-            <div class="row">
-                <div class="col-lg-3 m-3">
-                    <h5 class="text-center m-2">Search for a City</h5>
+            <div class="row m-2">
+                <div class="col-lg-3 bg-light my-3  rounded">
+                    <h5 class="text-center m-2 ">Search for a City</h5>
                     <div class="input-group">
-                        <input id= "searchCity" class="form-control" type="text" placeholder="Enter a city">
+                        <!-- Search city -->
+                        <input id= "input-city" class="form-control" type="text" placeholder="Enter a city">
                         <div class="input-group-append">
+                            <!-- Search button -->
                             <button type="button" id="searchBtn" class="btn btn-primary">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
                     <!-- Clear history button/option? -->
-                    <button class="btn btn-primary m-2" type="button" id="clearHistory">Clear History</button>
-                    <form id="history"></form>
+                    <button id="clear-history" class="btn btn-primary m-2" type="button">Clear History</button>
                     <!-- Search history -->
+                    <form id="history"></form>
                 </div>
                 
                 <!-- Selected city information -->
-                <div class="col-lg-9">
+                <div class="col-lg-9 just">
                     <!-- Current weather conditions -->
                     <div class="row text-center">
-                        <div id="current-weather" class="col-lg-11 card m-2 d-none">
+                        <div id="current-weather" class="col-lg-11 card m-3 text-white d-none">
                         <h2 class="card-header text-center">Current Weather</h2>
                             <div class="card-body">
-                                <h4 id="city-Name align-middle"></h4>
+                                <h4 id="city-name" class="city-name align-middle"></h4>
                                 <img id="currentIcon" alt="">
                                 <p id="temperature"></p>
                                 <p id="humidity"></p>
@@ -50,18 +52,19 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 5-day forecast -->
-                    <div class="row">
-                        <div class="12">
+                    <!-- 5-day forecast display-->
+                    <div class="row d-none justify-center" id="fiveday">
+                        <div class="col-12 text-center">
                             <h3>5-Day Forecast</h3>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">1</div>
-                        <div class="col-md-2">2</div>
-                        <div class="col-md-2">3</div>
-                        <div class="col-md-2">4</div>
-                        <div class="col-md-2">5</div>
+                    <!-- 5-day forecast -->
+                    <div class="row text-center">
+                        <div class="col-md-2 forecast text-white m-3 rounded"></div>
+                        <div class="col-md-2 forecast text-white m-3 rounded"></div>
+                        <div class="col-md-2 forecast text-white m-3 rounded"></div>
+                        <div class="col-md-2 forecast text-white m-3 rounded"></div>
+                        <div class="col-md-2 forecast text-white m-3 rounded"></div>
                     </div>
                 </div> 
                 
