@@ -8,7 +8,7 @@ function initPage() {
     const currentHumEl = document.getElementById ("humidity");
     const currentWindEl = document.getElementById ("windspeed");
     const historyEl = document.getElementById("history")
-    var fivedayEl = document.getElementById ("fiveday");
+    var fivedayEl = document.getElementById ("fivedayDisplay");
     var currentWeatherEl = document.getElementById("current-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
