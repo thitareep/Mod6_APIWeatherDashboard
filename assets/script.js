@@ -2,7 +2,7 @@ function initPage() {
     const cityEl = document.getElementById ("searchCity");
     const searchEl = document.getElementById ("searchBtn");
     const clearEl = document.getElementById ("clearHistory");
-    const nameEl = document.getElementById ("city-Name");
+    const nameEl = document.getElementById ("city-name");
     const currentIconEl = document.getElementById ("currentIcon");
     const currentTempEl = document.getElementById ("temperature");
     const currentHumEl = document.getElementById ("humidity");
@@ -11,14 +11,16 @@ function initPage() {
     var fivedayEl = document.getElementById ("fivedayDisplay");
     var currentWeatherEl = document.getElementById("current-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
-
-    const apiKey = "a4b429260a736a34655e8ace2ca39f38";
+    
+    // Assigning API to variable //
+    const myapiKey = "a4b429260a736a34655e8ace2ca39f38";
 
     function weatherInfo(cityName) {
-
-        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+        // Current weather get request from Open Weather API
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + myapiKey;
         axios.get(queryURL)
             .then(function (response) {
+                
                 currentWeatherEl.classList.remove("d-none");
 
                 const todayDate = new Date(response.data.dt * 1000);
@@ -27,18 +29,18 @@ function initPage() {
                 const year = todayDate.getFullYear();
                 nameEl.innerHTML = response.data.name + "(" + month + "/" + day + "/" + year +") ";
                 let weatherIcon = response.data.weather[0].icon;
-                currentIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
+                currentIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
                 currentIconEl.setAttribute("alt", response.data.weather[0].description);
                 currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " °F";
                 currentHumEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
                 currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
 
                 let cityID = response.data.id;
-                let weatherQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
+                let weatherQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + apiKey;
                 axios.get(weatherQueryURL)
                     .then(function (response) {
                         fivedayEl.classList.remove("d-none");
-
+                        // Parse response to display 5-day forecast
                         const weatherForeEls = document.querySelectorAll(".weatherFore");
                         for (i = 0; i < weatherForeEls.length; i++) {
                             weatherForeEls[i].innerHTML = "";
@@ -60,11 +62,51 @@ function initPage() {
                             foreTempEl.innerHTML = "Temperature: " + k2f(response.data.list[weatherForeIndex].main.temp + " °F");
                             weatherForeEls[i].append(foreTempEl);
                             const foreHumEl = document.createElement("p");
-                            foreHumEl.innerHTML = "Humidity: " + response.data.list[weatherForeIndex].main.humidity + "%");
+                            foreHumEl.innerHTML = "Humidity: " + response.data.list[weatherForeIndex].main.humidity + "%";
                             weatherForeEls[i].append(foreHumEl);
                         }
                     })
-            })
+                });
     }
 
+    // Search history from local storage //
+    searchEl.addEventListener("click", function () {
+        const searchInput = cityEl.ariaValueMax;
+        weatherInfo(searchInput);
+        searchHistory.push(searchInput);
+        localStorage.setItem("search", JSON.stringify(searchHistory));
+        renderSearchHistory();
+    })
+
+    // Clear search history //
+    clearEl.addEventListener("click", function() {
+        localStorage.clear();
+        searchHistory = [];
+        renderSearchHistory
+    })
+
+    function k2f(K) {
+        return Math.floor((K - 273.15) * 1.8 +32);
+    }
+
+    function renderSearchHistory() {
+        historyEl.innerHTML = "";
+        for (let i = 0; i < searchHistory.length; i++) {
+            const historyItem = document.createElement("input");
+            historyItem.setAttribute("type","text");
+            historyItem.setAttribute("readonly", true);
+            historyItem.setAttribute("class", "form-control d-block bg-white");
+            historyItem.addEventListener("click", function () {
+                weatherInfo(historyItem.value);
+            })
+            historyEl.append(historyItem);
+        }
+    }
+
+    renderSearchHistory();
+    if (searchHistory.length > 0) {
+        weatherInfo(searchHistory[searchHistory.length - 1]);
+    }
 }
+
+initPage();

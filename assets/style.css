@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background-color: #e3e4efd8;
 }
 
 header {
@@ -7,6 +7,4 @@ header {
     padding: 15px;
     font-weight: bolder;
     text-shadow: 3px 4px black;
-}
-
-    
+}  
