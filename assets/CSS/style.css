@@ -18,12 +18,13 @@ h2, h4 {
 /* Color styling for current weather display card */
 #current-weather {
     background-color: #b1afee;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
 
 /* Color styling for 5-day forecast weather display cards */
 .forecast {
     background-color: #6863e4;
     font-size: 15px;
-
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
     justify-content: center;
 }
