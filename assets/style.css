@@ -3,17 +3,18 @@ body {
 }
 
 header {
-    background-image: linear-gradient(to bottom right, rgb(17, 7, 62), #CCCCFF );
+    background-image: linear-gradient(to bottom right, rgb(94, 63, 233), #CCCCFF );
     padding: 15px;
     font-weight: bolder;
-    text-shadow: 3px 4px black;
+    text-shadow: 3px 4px rgb(65, 63, 63);
 }  
 
 #current-weather {
-    background-color: slategray;
+    background-color: #b1afee;
 }
-.weatherFore {
-    background-color: slategray;
-    font-size: 12px;
+.forecast {
+    background-color: #b1afee;
+    font-size: 15px;
+
     justify-content: center;
 }

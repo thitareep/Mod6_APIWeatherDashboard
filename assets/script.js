@@ -1,11 +1,11 @@
 function initPage() {
     const cityEl = document.getElementById ("input-city");
     const searchEl = document.getElementById ("searchBtn");
-    const clearEl = document.getElementById ("clearHistory");
+    const clearEl = document.getElementById ("clear-history");
     const nameEl = document.getElementById ("city-name");
     const currentIconEl = document.getElementById ("currentIcon");
     const currentTempEl = document.getElementById ("temperature");
-    const currentHumEl = document.getElementById ("humidity");
+    const currentHumidityEl = document.getElementById ("humidity");
     const currentWindEl = document.getElementById ("windspeed");
     const historyEl = document.getElementById("history")
     var fivedayEl = document.getElementById ("fivedayDisplay");
@@ -32,7 +32,7 @@ function initPage() {
                 currentIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
                 currentIconEl.setAttribute("alt", response.data.weather[0].description);
                 currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
-                currentHumEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
+                currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
                 currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
 
                 let cityID = response.data.id;
@@ -41,30 +41,30 @@ function initPage() {
                     .then(function (response) {
                         fivedayEl.classList.remove("d-none");
                         // Parse response to display 5-day forecast
-                        const weatherForeEls = document.querySelectorAll(".weatherFore");
-                        for (i = 0; i < weatherForeEls.length; i++) {
-                            weatherForeEls[i].innerHTML = "";
-                            const weatherForeIndex = i * 8 + 4;
-                            const weatherForeDate = new Date(response.data.list[weatherForeIndex].dt * 1000);
-                            const weatherForeDay = weatherForeDate.getDate();
-                            const weatherForeMonth = weatherForeDate.getMonth() + 1;
-                            const weatherForeYear = weatherForeDate.getFullYear();
-                            const weatherForeDateEl = document.createElement("p");
-                            weatherForeDateEl.setAttribute("class", "mt-4 mb-0 weatherFore-date");
-                            weatherForeDate.innerHTML = weatherForeMonth + "/" + weatherForeDay + "/" + weatherForeYear;
-                            weatherForeEls[i].append(weatherForeDate);
+                        const forecastEls = document.querySelectorAll(".forecast");
+                        for (i = 0; i < forecastEls.length; i++) {
+                            forecastEls[i].innerHTML = "";
+                            const forecastIndex = i * 8 + 4;
+                            const forecastDate = new Date(response.data.list[forecastIndex].dt * 1000);
+                            const forecastDay = forecastDate.getDate();
+                            const forecastMonth = forecastDate.getMonth() + 1;
+                            const forecastYear = forecastDate.getFullYear();
+                            const forecastDateEl = document.createElement("p");
+                            forecastDateEl.setAttribute("class", "mt-3 mb-0 forecast-date");
+                            forecastDateEl.innerHTML = forecastMonth + "/" + forecastDay + "/" + forecastYear;
+                            forecastEls[i].append(forecastDateEl);
 
                             // Current weather icon //
-                            const iForecastEl = document.createElement("img");
-                            iForecastEl.setAttribute("src", "https://openweathermap.org/img/wn/" + response.data.list[weatherForeIndex].weather[0].icon + "@2x.png");
-                            iForecastEl.setAttribute("alt", response.data.list[weatherForeIndex].weather[0].description);
-                            weatherForeEls[i].append(iForecastEl);
-                            const foreTempEl = document.createElement("p");
-                            foreTempEl.innerHTML = "Temperature: " + k2f(response.data.list[weatherForeIndex].main.temp + " &#176F");
-                            weatherForeEls[i].append(foreTempEl);
-                            const foreHumEl = document.createElement("p");
-                            foreHumEl.innerHTML = "Humidity: " + response.data.list[weatherForeIndex].main.humidity + "%";
-                            weatherForeEls[i].append(foreHumEl);
+                            const forecastWeatherEl = document.createElement("img");
+                            forecastWeatherEl.setAttribute("src", "https://openweathermap.org/img/wn/" + response.data.list[forecastIndex].weather[0].icon + "@2x.png");
+                            forecastWeatherEl.setAttribute("alt", response.data.list[forecastIndex].weather[0].description);
+                            forecastEls[i].append(forecastWeatherEl);
+                            const forecastTempEl = document.createElement("p");
+                            forecastTempEl.innerHTML = "Temperature: " + k2f(response.data.list[forecastIndex].main.temp) + " &#176F";
+                            forecastEls[i].append(forecastTempEl);
+                            const forecastHumidityEl = document.createElement("p");
+                            forecastHumidityEl.innerHTML = "Humidity: " + response.data.list[forecastIndex].main.humidity + "%";
+                            forecastEls[i].append(forecastHumidityEl);
                         }
                     })
                 });
@@ -80,10 +80,10 @@ function initPage() {
     })
 
     // Clear search history //
-    clearEl.addEventListener("click", function() {
+    clearEl.addEventListener("click", function () {
         localStorage.clear();
         searchHistory = [];
-        renderSearchHistory
+        renderSearchHistory();
     })
 
     function k2f(K) {
@@ -94,9 +94,10 @@ function initPage() {
         historyEl.innerHTML = "";
         for (let i = 0; i < searchHistory.length; i++) {
             const historyItem = document.createElement("input");
-            historyItem.setAttribute("type","text");
+            historyItem.setAttribute("type", "text");
             historyItem.setAttribute("readonly", true);
-            historyItem.setAttribute("class", "form-control d-block bg-white");
+            historyItem.setAttribute("class", "form-control d-block bg-white text-center");
+            historyItem.setAttribute("value", searchHistory[i]);
             historyItem.addEventListener("click", function () {
                 weatherInfo(historyItem.value);
             })
