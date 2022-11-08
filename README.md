@@ -6,7 +6,7 @@ This is the completed Weather Dashboard application for the Module 6 Server-Side
 Initial page
 ![screenshot](https://github.com/thitareep/Mod6_APIWeatherDashboard/blob/main/assets/WeatherDash1_SS.png?raw=true)
 Weather Display with Search History
-![screenshot](https://github.com/thitareep/Mod6_APIWeatherDashboard/blob/main/assets/WeatherDashboard_SS2.png?raw=true)
+![screenshot](https://github.com/thitareep/Mod6_APIWeatherDashboard/blob/main/assets/WeatherDash2_SS.png?raw=true)
 ## Deployed Link
 Link to deployed application:
 https://thitareep.github.io/Mod6_APIWeatherDashboard/
