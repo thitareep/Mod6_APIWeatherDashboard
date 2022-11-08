@@ -1,3 +1,4 @@
+//OpenWeather One Call https://openweathermap.org/api/one-call-3 //
 function initPage() {
     const cityEl = document.getElementById ("input-city");
     const searchEl = document.getElementById ("searchBtn");
@@ -6,7 +7,7 @@ function initPage() {
     const currentIconEl = document.getElementById ("currentIcon");
     const currentTempEl = document.getElementById ("temperature");
     const currentHumidityEl = document.getElementById ("humidity");
-    const currentWindEl = document.getElementById ("windspeed");
+    const currentWindEl = document.getElementById ("wind");
     const historyEl = document.getElementById("history")
     var fivedayEl = document.getElementById ("fiveday");
     var currentWeatherEl = document.getElementById("current-weather");
@@ -31,7 +32,7 @@ function initPage() {
                 let weatherIcon = response.data.weather[0].icon;
                 currentIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
                 currentIconEl.setAttribute("alt", response.data.weather[0].description);
-                currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
+                currentTempEl.innerHTML = "Temperature: " + kf(response.data.main.temp) + " &#176F";
                 currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
                 currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
 
@@ -41,7 +42,7 @@ function initPage() {
                 axios.get(weatherQueryURL)
                     .then(function (response) {
                         fivedayEl.classList.remove("d-none");
-                        
+                        // Using 'forecast' from weatherQueryURL//
                         // Parse response to display 5-day forecast //
                         const forecastEls = document.querySelectorAll(".forecast");
                         for (i = 0; i < forecastEls.length; i++) {
@@ -62,7 +63,7 @@ function initPage() {
                             forecastWeatherEl.setAttribute("alt", response.data.list[forecastIndex].weather[0].description);
                             forecastEls[i].append(forecastWeatherEl);
                             const forecastTempEl = document.createElement("p");
-                            forecastTempEl.innerHTML = "Temperature: " + k2f(response.data.list[forecastIndex].main.temp) + " &#176F";
+                            forecastTempEl.innerHTML = "Temperature: " + kf(response.data.list[forecastIndex].main.temp) + " &#176F";
                             forecastEls[i].append(forecastTempEl);
                             const forecastHumidityEl = document.createElement("p");
                             forecastHumidityEl.innerHTML = "Humidity: " + response.data.list[forecastIndex].main.humidity + "%";
@@ -70,6 +71,12 @@ function initPage() {
                         }
                     })
                 });
+    }
+
+    // Kelvin to Fahrenheit for Temperatures//
+    //Forumla Kelvin to Fahrenheit = 1.8*(K-273) + 32 
+    function kf(K) {
+        return Math.floor((K - 273.15) * 1.8 +32);
     }
 
     // Search history from local storage //
@@ -88,9 +95,6 @@ function initPage() {
         renderSearchHistory();
     })
 
-    function k2f(K) {
-        return Math.floor((K - 273.15) * 1.8 +32);
-    }
 
     function renderSearchHistory() {
         historyEl.innerHTML = "";
