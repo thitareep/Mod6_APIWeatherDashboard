@@ -7,8 +7,6 @@ Initial page
 ![screenshot](https://github.com/thitareep/Mod6_APIWeatherDashboard/blob/main/assets/WeatherDash1.png)
 Weather Display with Search History
 ![screenshot](https://github.com/thitareep/Mod6_APIWeatherDashboard/blob/main/assets/WeatherDash2.png)
-Last searched city forecast display from persistant data in localStorage
-![screenshot](https://github.com/thitareep/Mod6_APIWeatherDashboard/blob/main/assets/WeatherDash3.png)
 ## Deployed Link
 Link to deployed application:
 https://thitareep.github.io/Mod6_APIWeatherDashboard/
