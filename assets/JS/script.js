@@ -2,16 +2,16 @@
 function initPage() {
     const cityEl = document.getElementById ("input-city");
     const searchEl = document.getElementById ("searchBtn");
-    const clearEl = document.getElementById ("clear-history");
+    const clearEl = document.getElementById ("clear-hist");
     const nameEl = document.getElementById ("city-name");
     const currentIconEl = document.getElementById ("currentIcon");
     const currentTempEl = document.getElementById ("temperature");
     const currentHumidityEl = document.getElementById ("humidity");
     const currentWindEl = document.getElementById ("wind");
-    const historyEl = document.getElementById("history")
+    const histEl = document.getElementById("hist")
     var fivedayEl = document.getElementById ("fiveday");
     var currentWeatherEl = document.getElementById("current-weather");
-    let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+    let searchHist = JSON.parse(localStorage.getItem("search")) || [];
     
     // Assigning API to variable //
     const myapiKey = "a4b429260a736a34655e8ace2ca39f38";
@@ -73,8 +73,8 @@ function initPage() {
                 });
     }
 
-    // Kelvin to Fahrenheit for Temperatures//
-    //Forumla Kelvin to Fahrenheit = 1.8*(K-273) + 32 
+    // Kelvin to Fahrenheit function for Temperatures//
+    //Forumla to change Kelvin to Fahrenheit = 1.8*(K-273) + 32 
     function kf(K) {
         return Math.floor((K - 273.15) * 1.8 +32);
     }
@@ -83,37 +83,37 @@ function initPage() {
     searchEl.addEventListener("click", function () {
         const searchInput = cityEl.value;
         weatherInfo(searchInput);
-        searchHistory.push(searchInput);
-        localStorage.setItem("search", JSON.stringify(searchHistory));
-        renderSearchHistory();
+        searchHist.push(searchInput);
+        localStorage.setItem("search", JSON.stringify(searchHist));
+        renderSearchHist();
     })
 
     // Clear search history //
     clearEl.addEventListener("click", function () {
         localStorage.clear();
-        searchHistory = [];
-        renderSearchHistory();
+        searchHist = [];
+        renderSearchHist();
     })
 
 
-    function renderSearchHistory() {
-        historyEl.innerHTML = "";
-        for (let i = 0; i < searchHistory.length; i++) {
-            const historyItem = document.createElement("input");
-            historyItem.setAttribute("type", "text");
-            historyItem.setAttribute("readonly", true);
-            historyItem.setAttribute("class", "form-control d-block bg-white text-center");
-            historyItem.setAttribute("value", searchHistory[i]);
-            historyItem.addEventListener("click", function () {
-                weatherInfo(historyItem.value);
+    function renderSearchHist() {
+        histEl.innerHTML = "";
+        for (let i = 0; i < searchHist.length; i++) {
+            const histItem = document.createElement("input");
+            histItem.setAttribute("type", "text");
+            histItem.setAttribute("readonly", true);
+            histItem.setAttribute("class", "form-control d-block bg-white text-center");
+            histItem.setAttribute("value", searchHist[i]);
+            histItem.addEventListener("click", function () {
+                weatherInfo(histItem.value);
             })
-            historyEl.append(historyItem);
+            histEl.append(histItem);
         }
     }
 
-    renderSearchHistory();
-    if (searchHistory.length > 0) {
-        weatherInfo(searchHistory[searchHistory.length - 1]);
+    renderSearchHist();
+    if (searchHist.length > 0) {
+        weatherInfo(searchHist[searchHist.length - 1]);
     }
 }
 
